@@ -1,5 +1,4 @@
 import discord
-from discord.ext import commands
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -7,24 +6,8 @@ intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
-async def on_ready():
-    print(f'We have logged in as {bot.user}')
-
-@bot.command()
-async def hello(ctx):
-    await ctx.send(f'Привет! Я бот {bot.user}!')
-
-@bot.command()
-async def heh(ctx, count_heh = 5):
-    await ctx.send("he" * count_heh)
-
-@bot.command()
-async def add(ctx, left: int, right: int):
-    await ctx.send(left + right)
-
-@bot.command()
-async def joined(ctx, member: discord.Member):
-    """Says when a member joined."""
-    await ctx.send(f'{member.name} joined {discord.utils.format_dt(member.joined_at)}')
-
-bot.run("")
+async def on_message(message):
+    if message.author == bot.user:
+        return
+    if message.content.startswit('Привет'):
+        await message.channel.send("привет, если ты хочешь помочь своему городу перейди сюда:https://recyclemap.ru")
